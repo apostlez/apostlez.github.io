@@ -1,0 +1,3 @@
+[submodule "anna_games"]
+	path = anna_games
+	url = https://github.com/apostlez/anna_games.git
