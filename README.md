@@ -9,6 +9,7 @@
 | 게임 | URL | 소스 |
 |------|-----|------|
 | 달려라 두부 🐹 | [/anna_games/run_dubu_run/](https://apostlez.github.io/anna_games/run_dubu_run/) | [anna_games](https://github.com/apostlez/anna_games) |
+| 우주 슈팅 🚀 | [/anna_games/gun_shoot/](https://apostlez.github.io/anna_games/gun_shoot/) | [anna_games](https://github.com/apostlez/anna_games) |
 
 ---
 
