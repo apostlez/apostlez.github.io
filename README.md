@@ -10,6 +10,7 @@
 |------|-----|------|
 | 달려라 두부 🐹 | [/anna_games/run_dubu_run/](https://apostlez.github.io/anna_games/run_dubu_run/) | [anna_games](https://github.com/apostlez/anna_games) |
 | 우주 슈팅 🚀 | [/anna_games/gun_shoot/](https://apostlez.github.io/anna_games/gun_shoot/) | [anna_games](https://github.com/apostlez/anna_games) |
+| Word Wizard 🪄 | [/anna_games/word_wizard/](https://apostlez.github.io/anna_games/word_wizard/) | [anna_games/word_wizard](https://github.com/apostlez/anna_games/tree/main/word_wizard) |
 
 ---
 
@@ -29,9 +30,27 @@ git submodule update --init --recursive
 
 ## 배포 방식
 
-- **플랫폼**: GitHub Pages (`main` 브랜치 루트 서빙)
+- **플랫폼**: GitHub Pages
 - **게임 소스**: `anna_games` 서브모듈 (`./anna_games/`)
-- **자동 배포**: `main` 브랜치에 push 시 GitHub Pages가 자동으로 배포
+- **자동 배포**: `.github/workflows/deploy-pages.yml`이 Word Wizard를 production build한 뒤 Pages artifact로 배포
+
+GitHub 저장소 Settings → Pages → Build and deployment → Source에서 **GitHub Actions**를 선택해야 합니다.
+
+### Word Wizard 로컬 실행
+
+```bash
+cd anna_games/word_wizard
+npm install
+npm run dev
+```
+
+production 검증:
+
+```bash
+npm test
+npm run validate:words
+npm run build
+```
 
 ### anna_games 업데이트 반영
 
@@ -43,6 +62,8 @@ git add anna_games
 git commit -m "chore: update anna_games submodule"
 git push origin main
 ```
+
+`anna_games`의 Word Wizard 소스가 변경되면 workflow가 `npm run build`를 실행하고, 결과를 `/anna_games/word_wizard/` 경로에 게시합니다.
 
 ---
 
