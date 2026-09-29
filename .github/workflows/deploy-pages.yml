@@ -1,0 +1,65 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout site and submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: anna_games/word_wizard/package-lock.json
+
+      - name: Build Word Wizard
+        working-directory: anna_games/word_wizard
+        run: |
+          npm ci
+          npm run validate:words
+          npm run build
+
+      - name: Assemble site
+        shell: bash
+        run: |
+          mkdir -p _site/anna_games
+          cp -R anna_games/gun_shoot _site/anna_games/
+          cp -R anna_games/run_dubu_run _site/anna_games/
+          mkdir -p _site/anna_games/word_wizard
+          cp -R anna_games/word_wizard/dist/. _site/anna_games/word_wizard/
+          touch _site/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
