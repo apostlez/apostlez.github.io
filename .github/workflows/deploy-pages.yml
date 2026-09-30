@@ -38,10 +38,24 @@ jobs:
           npm run validate:words
           npm run build
 
+      - name: Prepare homepage source
+        shell: bash
+        run: |
+          mkdir -p _homepage
+          cp README.md _homepage/
+
+      - name: Build homepage from README
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: _homepage
+          destination: _homepage_site
+
       - name: Assemble site
         shell: bash
         run: |
           mkdir -p _site/anna_games
+          cp -R _homepage_site/. _site/
+          test -s _site/index.html
           cp -R anna_games/gun_shoot _site/anna_games/
           cp -R anna_games/run_dubu_run _site/anna_games/
           mkdir -p _site/anna_games/word_wizard

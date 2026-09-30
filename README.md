@@ -32,7 +32,7 @@ git submodule update --init --recursive
 
 - **플랫폼**: GitHub Pages
 - **게임 소스**: `anna_games` 서브모듈 (`./anna_games/`)
-- **자동 배포**: `.github/workflows/deploy-pages.yml`이 Word Wizard를 production build한 뒤 Pages artifact로 배포
+- **자동 배포**: `.github/workflows/deploy-pages.yml`이 Word Wizard를 production build하고, Jekyll로 이 README를 홈페이지(`index.html`)로 변환한 뒤 게임 파일과 함께 Pages artifact로 배포
 
 GitHub 저장소 Settings → Pages → Build and deployment → Source에서 **GitHub Actions**를 선택해야 합니다.
 
